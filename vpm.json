@@ -2,7 +2,7 @@
     "name": "FZTools",
     "id": "com.gfool6.fztools",
     "author": "gfool6",
-    "url": "https://github.com/gfool6/FZTools/blob/main/vpm.json",
+    "url": "https://raw.githubusercontent.com/gfool6/FZTools/refs/heads/main/vpm.json",
     "packages": {
         "com.gfool6.fztools": {
         "versions": {
@@ -14,8 +14,7 @@
                 "unity": "2022.3",
                 "licensesUrl": "https://github.com/gfool6/FZTools/blob/main/LICENSE",
                 "license": "MIT",
-                "url": "https://github.com/gfool6/FZTools/releases/download/0.0.11/com.gfool6.fztools.0.0.11.zip",
-                "repo": "https://github.com/gfool6/FZTools/blob/main/vpm.json"
+                "url": "https://github.com/gfool6/FZTools/releases/download/0.0.11/com.gfool6.fztools.0.0.11.zip"
                 }
             }
         }
