@@ -8,6 +8,7 @@ using VRC.SDK3.Avatars.ScriptableObjects;
 using VRC.SDK3.Avatars.Components;
 using EUI = FZTools.EditorUtils.UI;
 using ELayout = FZTools.EditorUtils.Layout;
+using static FZTools.FZToolsConstants;
 
 namespace FZTools
 {

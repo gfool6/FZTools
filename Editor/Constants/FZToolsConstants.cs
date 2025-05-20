@@ -10,15 +10,6 @@ namespace FZTools
 {
     public class FZToolsConstants
     {
-        public struct FZTools
-        {
-            // thisPath = {anyPath}/Editor/FZToolsConstants.csなので
-            private static readonly string outputRootPath = Directory.GetFiles("Assets", "*", System.IO.SearchOption.AllDirectories)
-                                                                        .FirstOrDefault(path => System.IO.Path.GetFileName(path) == "FZToolsConstants.cs")
-                                                                        .convertWinPath2Path()
-                                                                        .Replace("/Editor/FZToolsConstants.cs", "/AutoCreate");
-            public static string OutputRootPath(string avatarName) => $"{outputRootPath}/{avatarName}";
-        }
 
         public struct LabelText
         {

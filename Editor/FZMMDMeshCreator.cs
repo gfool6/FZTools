@@ -8,6 +8,7 @@ using UnityEditor.Animations;
 using VRC.SDK3.Avatars.Components;
 using EUI = FZTools.EditorUtils.UI;
 using ELayout = FZTools.EditorUtils.Layout;
+using static FZTools.FZToolsConstants;
 
 namespace FZTools
 {
@@ -29,7 +30,7 @@ namespace FZTools
         private GameObject avatar;
 
         string TargetAvatarName => avatar?.name;
-        string MMDMeshOutputPath => $"{FZToolsConstants.FZTools.OutputRootPath(TargetAvatarName)}/MMD";
+        string MMDMeshOutputPath => $"{AssetUtils.OutputRootPath(TargetAvatarName)}/MMD";
         SkinnedMeshRenderer FaceMeshRenderer => avatar.GetComponent<VRCAvatarDescriptor>().GetVRCAvatarFaceMeshRenderer();
         int PreviewSize => (int)Math.Round(position.size.x / 2.3);
         string[] BlendShapes => Enumerable.Range(0, FaceMeshRenderer.sharedMesh.blendShapeCount)

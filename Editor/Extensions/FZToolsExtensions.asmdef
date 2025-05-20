@@ -1,0 +1,26 @@
+{
+    "name": "FZToolsExtensions",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6474ffb2a5340404e83c4efe68aaef4e",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "VRCSDK3A.dll",
+        "VRCSDK3A-Editor.dll",
+        "VRCSDKBase.dll",
+        "VRCSDKBase-Editor.dll",
+        "VRCCore-Editor.dll",
+        "VRC.Utility.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

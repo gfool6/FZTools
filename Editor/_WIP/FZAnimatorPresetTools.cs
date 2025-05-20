@@ -25,7 +25,7 @@ namespace FZTools
         private FZPreset fzPreset;
 
         string TargetAvatarName => avatarDescripter?.gameObject?.name;
-        string OutputDirPath => $"{FZToolsConstants.FZTools.OutputRootPath(TargetAvatarName)}/AnimatorController";
+        string OutputDirPath => $"{AssetUtils.OutputRootPath(TargetAvatarName)}/AnimatorController";
 
 
         [MenuItem("FZTools/_WIP/FZAnimatorPresetTools")]

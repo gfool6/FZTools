@@ -7,7 +7,6 @@ using ELayout = FZTools.EditorUtils.Layout;
 using System.IO;
 using System;
 using VRC.SDK3.Dynamics.PhysBone.Components;
-
 namespace FZTools
 {
     /// <summary>
@@ -26,7 +25,7 @@ namespace FZTools
         // public List<string> shrinkShapeNames;
 
         private string TargetAvatarName => avatar?.name;
-        private string PrefabOutputPath => $"{FZToolsConstants.FZTools.OutputRootPath(TargetAvatarName)}/Prefab";
+        private string PrefabOutputPath => $"{AssetUtils.OutputRootPath(TargetAvatarName)}/Prefab";
         private List<string> MeshNames => avatarMesheRenderers.Select(m => m.name).ToList();
         private List<string> ClothesObjectNames => clothAndAccessoryRootObjectPaths.Select(path => avatar.transform.Find(path.Replace($"{avatar.name}/", "")).name).ToList();
         private List<string> PhysBoneNames => physBones.Select(pb => pb.name).ToList();
@@ -88,6 +87,7 @@ namespace FZTools
                             }
                             CreateSelector("残したい着せ替えアイテム", ref gameObjectsScrollPos, ClothesObjectNames, meshRootObjEnabled);
                             CreateSelector("残したいPhysBones", ref physBoneScrollPos, PhysBoneNames, physBonesEnabled);
+                            // TODO PBCの追加　
                             EUI.Space(2);
                             EUI.Button("追い剥ぎ", Bandit);
                             EUI.Space();
@@ -192,6 +192,7 @@ namespace FZTools
             else
             {
                 var prefabFilePath = $"{PrefabOutputPath}/{avatar.name}_Kisekae.prefab";
+                // TODO prefabの"prefab"から取得するよう変更する
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetUtils.FindAssetPathFromObjectFileName($"{avatar.name}.prefab"));
                 dressupDoll = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
                 var pType = PrefabUtility.GetPrefabAssetType(dressupDoll);
@@ -338,7 +339,7 @@ namespace FZTools
         private void CreateFZDressUpBodyConstants()
         {
             var dubc = ScriptableObject.CreateInstance<FZDressUpBodyConstants>();
-            var thisPath = Directory.GetFiles("Assets", "*", System.IO.SearchOption.AllDirectories)
+            var thisPath = Directory.GetFiles("Packages", "*", System.IO.SearchOption.AllDirectories)
                                     .FirstOrDefault(path => System.IO.Path.GetFileName(path) == "FZDressUpBodyCreator.cs")
                                     .convertWinPath2Path()
                                     .Replace("FZDressUpBodyCreator.cs", "");

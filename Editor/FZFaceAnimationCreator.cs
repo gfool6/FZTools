@@ -18,7 +18,7 @@ namespace FZTools
         List<SkinnedMeshRenderer> SkinnedMeshRenderers => AvatarDescriptor != null ? AvatarDescriptor.GetComponentsInChildren<SkinnedMeshRenderer>(true).ToList() : new List<SkinnedMeshRenderer>();
         String[] MeshNames => SkinnedMeshRenderers.Select(smr => smr.gameObject.name).ToArray();
         string TargetAvatarName => avatar?.gameObject?.name;
-        string AnimationClipOutputPath => $"{FZToolsConstants.FZTools.OutputRootPath(TargetAvatarName)}/AnimationClip/FaceAnimCreator";
+        string AnimationClipOutputPath => $"{AssetUtils.OutputRootPath(TargetAvatarName)}/AnimationClip/FaceAnimCreator";
         private SkinnedMeshRenderer selected;
         private int selectedIndex = -1;
         private int prevSelectedIndex = -1;

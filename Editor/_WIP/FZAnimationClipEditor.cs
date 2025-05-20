@@ -29,7 +29,7 @@ namespace FZTools
         int ColumnSize => (int)Math.Round(position.size.x / 3);
         int RowSize => (int)Math.Round(position.size.y / 4);
         bool IsCreate => animationClip == null;
-        string AnimationClipOutputPath => $"{FZToolsConstants.FZTools.OutputRootPath(TargetAvatarName)}/AnimationClip";
+        string AnimationClipOutputPath => $"{AssetUtils.OutputRootPath(TargetAvatarName)}/AnimationClip";
 
         List<string> meshAndObjPaths = new List<string>();
         List<string> meshPaths = new List<string>();

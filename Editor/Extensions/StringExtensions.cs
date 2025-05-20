@@ -1,3 +1,4 @@
+using UnityEngine;
 namespace FZTools
 {
     public static class StringExtensions

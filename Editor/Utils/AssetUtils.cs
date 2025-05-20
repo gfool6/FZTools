@@ -10,6 +10,14 @@ namespace FZTools
 {
     public static class AssetUtils
     {
+        private static readonly string outputRootPath = Directory.GetFiles("Packages", "com.gfool6.fztools/*", System.IO.SearchOption.AllDirectories)
+                                                                    .FirstOrDefault(path => System.IO.Path.GetFileName(path) == "README.md")
+                                                                    .convertWinPath2Path()
+                                                                    .Replace("Packages", "Assets")
+                                                                    .Replace("com.gfool6.fztools", "FZTools")
+                                                                    .Replace("README.md", "AutoCreate");
+        public static string OutputRootPath(string avatarName) => $"{outputRootPath}/{avatarName}";
+        
         public static void CreateAsset(UnityEngine.Object obj, string path)
         {
             AssetDatabase.DeleteAsset(path);

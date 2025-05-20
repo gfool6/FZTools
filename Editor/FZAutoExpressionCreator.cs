@@ -10,6 +10,7 @@ using EUI = FZTools.EditorUtils.UI;
 using ELayout = FZTools.EditorUtils.Layout;
 using UnityEditor.Animations;
 using UnityEngine.Experimental.Rendering;
+using static FZTools.FZToolsConstants;
 
 namespace FZTools
 {
@@ -19,9 +20,9 @@ namespace FZTools
         public GameObject avatar;
 
         string TargetAvatarName => avatar?.gameObject?.name;
-        string ExpressionsOutputPath => $"{FZToolsConstants.FZTools.OutputRootPath(TargetAvatarName)}/Expressions";
-        string AnimatorControllerOutputPath => $"{FZToolsConstants.FZTools.OutputRootPath(TargetAvatarName)}/AnimatorController";
-        string AnimationClipOutputPath => $"{FZToolsConstants.FZTools.OutputRootPath(TargetAvatarName)}/AnimationClip";
+        string ExpressionsOutputPath => $"{AssetUtils.OutputRootPath(TargetAvatarName)}/Expressions";
+        string AnimatorControllerOutputPath => $"{AssetUtils.OutputRootPath(TargetAvatarName)}/AnimatorController";
+        string AnimationClipOutputPath => $"{AssetUtils.OutputRootPath(TargetAvatarName)}/AnimationClip";
         VRCAvatarDescriptor AvatarDescriptor => previewRenderer.Scene.GetRootGameObjects().Select(obj => obj.GetComponent<VRCAvatarDescriptor>()).FirstOrDefault();
         SkinnedMeshRenderer FaceMesh => AvatarDescriptor.GetVRCAvatarFaceMeshRenderer();
         List<Renderer> Renderers => AvatarDescriptor.GetComponentsInChildren<Renderer>(true).ToList();

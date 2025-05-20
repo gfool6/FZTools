@@ -1,7 +1,7 @@
 {
     "name": "com.gfool6.fztools",
     "displayName": "FZTools",
-    "version": "0.0.11",
+    "version": "0.1.0",
     "unity": "2022.3",
     "description" : "gfool6's avatar custom tool."
   }

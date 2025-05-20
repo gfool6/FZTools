@@ -1,15 +1,13 @@
 {
-    "name": "FZTools",
+    "name": "FZToolsConstants",
     "rootNamespace": "",
-    "references": [
-        "UniTask"
-    ],
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
+    "overrideReferences": true,
     "precompiledReferences": [],
     "autoReferenced": false,
     "defineConstraints": [],

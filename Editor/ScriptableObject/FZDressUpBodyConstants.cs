@@ -14,7 +14,7 @@ namespace FZTools
         {
             "body", "underware", "bra", "shorts", "socks",
             "tights", "leggins", "hair", "ear", "horn",
-            "face", "spats", "tail", "garter"
+            "face", "spats", "tail", "garter", "underwear", "Body"
         };
         [SerializeField]
         public List<string> ShrinkShapeNames = new List<string>() {
