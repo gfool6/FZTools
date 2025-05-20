@@ -5,7 +5,7 @@
 <br>
 <br>
 
-インストールは[こちら](vcc://vpm/addRepo?url=https://gfool6.github.io/vpm-repos/vpm.json)（VCC/ALCOMが開きます）
+インストールは[こちら](https://gfool6.github.io/vpm-repos/vpm.json)
 
 <br>
 <br>
