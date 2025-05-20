@@ -3,7 +3,11 @@
 ### VRChatにおけるアバターのセットアップや改変をちょっと楽にするツール群です
 ### 各種自動生成ファイルは FZTools/AutoCreate以下に作成されます
 <br>
+<br>
 
+インストールは[こちら](vcc://vpm/addRepo?url=https://gfool6.github.io/vpm-repos/vpm.json)（VCC/ALCOMが開きます）
+
+<br>
 <br>
 
 # 実装済み
