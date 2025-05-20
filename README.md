@@ -5,7 +5,7 @@
 <br>
 <br>
 
-インストールは[こちら](https://gfool6.github.io/vpm-repos/vpm.json)
+インストールは[こちら](https://gfool6.github.io/vpm-repos)
 
 <br>
 <br>
