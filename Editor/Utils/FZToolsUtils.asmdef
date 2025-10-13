@@ -1,0 +1,18 @@
+{
+    "name": "FZToolsUtils",
+    "rootNamespace": "",
+    "references": [
+        "GUID:416a347d7ae554296aa29a9262ca5d0d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

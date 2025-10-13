@@ -85,14 +85,9 @@ namespace FZTools
         {
             var ac = new AnimationClip();
             ac.AddBlendShape(selected);
-            AssetUtils.DeleteAndCreateDirectoryRecursive(AnimationClipOutputPath);
+            //ディレクトリが存在していれば何もせず、なければ作成し、animファイルをそこに配置
+            AssetUtils.CreateDirectoryRecursive(AnimationClipOutputPath);
             AssetUtils.CreateAsset(ac, $"{AnimationClipOutputPath}/{animFileName}.anim");
-            // int count = selected.sharedMesh.blendShapeCount;
-            // for (int i = 0; i < count; i++)
-            // {
-            //     var shapeName = selected.sharedMesh.GetBlendShapeName(i);
-
-            // }
         }
     }
 }

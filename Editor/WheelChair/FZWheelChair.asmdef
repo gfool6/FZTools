@@ -1,5 +1,5 @@
 {
-    "name": "FZTMain",
+    "name": "FZWheelChair",
     "rootNamespace": "",
     "references": [
         "GUID:6474ffb2a5340404e83c4efe68aaef4e",
@@ -16,12 +16,11 @@
     "precompiledReferences": [
         "VRC.Dynamics.dll",
         "VRC.Utility.dll",
-        "VRCSDK3A.dll",
-        "VRCSDKBase.dll",
         "VRCCore-Editor.dll",
+        "VRCSDK3A.dll",
         "VRCSDK3A-Editor.dll",
-        "VRCSDKBase-Editor.dll",
-        "VRC.SDK3.Dynamics.PhysBone.dll"
+        "VRCSDKBase.dll",
+        "VRCSDKBase-Editor.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [],

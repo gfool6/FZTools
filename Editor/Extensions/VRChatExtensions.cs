@@ -11,9 +11,9 @@ namespace FZTools
 {
     public static class VRChatExtensions
     {
-        public static AnimatorController GetFXController(this VRCAvatarDescriptor vrcad)
+        public static AnimatorController GetPlayableLayerController(this VRCAvatarDescriptor vrcad, VRCAvatarDescriptor.AnimLayerType lt)
         {
-            var runtimeController = vrcad.baseAnimationLayers.First(l => l.type == VRCAvatarDescriptor.AnimLayerType.FX).animatorController;
+            var runtimeController = vrcad.baseAnimationLayers.First(l => l.type == lt).animatorController;
             var controllerPath = AssetDatabase.GetAssetPath(runtimeController);
             var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(controllerPath);
             return controller;

@@ -74,7 +74,7 @@ namespace FZTools
             AssetDatabase.DeleteAsset(dirPath);
             AssetUtils.CreateDirectoryRecursive(dirPath);
 
-            var controller = descriptor.GetFXController();
+            var controller = descriptor.GetPlayableLayerController(VRCAvatarDescriptor.AnimLayerType.FX);
 
             var newPreset = ScriptableObject.CreateInstance<FZPreset>();
             newPreset.layerPresets = new List<FZLayerPreset>();

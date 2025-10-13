@@ -10,6 +10,19 @@ namespace FZTools
 {
     public class FZToolsConstants
     {
+        public struct Package
+        {
+            public const string Name = "FZTools";
+            public const string PackageName = "com.gfool6.fztools";
+            public const string Version = "0.1.1";
+        }
+
+        public struct OutputPath
+        {
+            public const string AutoCreateRoot = "Assets/FZTools/AutoCreate";
+            public const string WheelChair = AutoCreateRoot + "/WheelChair";
+
+        }
 
         public struct LabelText
         {
@@ -43,7 +56,7 @@ namespace FZTools
             public static readonly string GestureLeft = "GestureLeft";
             public static readonly string GestureRight = "GestureRight";
 
-            public static readonly string FaceMenu = "FaceMenu";        
+            public static readonly string FaceMenu = "FaceMenu";
 
             public static HandGesture[] HandGestures => Enum.GetNames(typeof(HandGesture)).Select(n => (HandGesture)Enum.Parse(typeof(HandGesture), n)).ToArray();
             public enum HandGesture

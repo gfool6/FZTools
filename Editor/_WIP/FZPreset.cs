@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FZTools
 {
-    [CreateAssetMenu(fileName = "FZPreset", menuName = "FZTools/FZPreset", order = 0)]
+    // [CreateAssetMenu(fileName = "FZPreset", menuName = "FZTools/FZPreset", order = 0)]
     public class FZPreset : ScriptableObject
     {
         [SerializeField]

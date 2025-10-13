@@ -15,6 +15,10 @@ namespace FZTools
 
         public static string convertWinPath2Path(this string path)
         {
+            if (path.isNullOrEmpty())
+            {
+                return path;
+            }
             return path.Replace("\\", "/");
         }
     }

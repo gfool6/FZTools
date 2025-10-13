@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FZTools
 {
-    [CreateAssetMenu(fileName = "FZLayerPreset", menuName = "FZTools/FZLayerPreset", order = 1)]
+    // [CreateAssetMenu(fileName = "FZLayerPreset", menuName = "FZTools/FZLayerPreset", order = 1)]
     public class FZLayerPreset : ScriptableObject
     {
         [Header("Layer Info")]

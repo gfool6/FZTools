@@ -20,6 +20,7 @@ namespace FZTools
         
         public static void CreateAsset(UnityEngine.Object obj, string path)
         {
+            Debug.Log(path);
             AssetDatabase.DeleteAsset(path);
             AssetDatabase.CreateAsset(obj, AssetDatabase.GenerateUniqueAssetPath(path));
             AssetDatabase.SaveAssets();
@@ -57,6 +58,13 @@ namespace FZTools
         public static string FindAssetPathFromObjectFileName(string objFileName)
         {
             return Directory.GetFiles("Assets", "*", System.IO.SearchOption.AllDirectories)
+                    .FirstOrDefault(path => System.IO.Path.GetFileName(path) == $"{objFileName}")
+                    .convertWinPath2Path();
+        }
+
+        public static string FindPackageAssetPathFromObjectFileName(string objFileName)
+        {
+            return Directory.GetFiles("Packages", "*", System.IO.SearchOption.AllDirectories)
                     .FirstOrDefault(path => System.IO.Path.GetFileName(path) == $"{objFileName}")
                     .convertWinPath2Path();
         }
