@@ -140,6 +140,11 @@ namespace FZTools
                 EditorGUILayout.HelpBox(text, MessageType.Error);
             }
 
+            public static void WarningBox(string text)
+            {
+                EditorGUILayout.HelpBox(text, MessageType.Warning);
+            }
+
             public static void RadioButton(ref int selection, string[] labels, params GUILayoutOption[] opt)
             {
                 selection = GUILayout.SelectionGrid(selection, labels, 1, EditorStyles.radioButton, opt);

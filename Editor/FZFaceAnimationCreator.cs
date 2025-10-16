@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Collections.Specialized;
 using System;
 using System.Linq;
 using System.Collections;
@@ -8,12 +10,14 @@ using VRC.SDK3.Avatars.ScriptableObjects;
 using VRC.SDK3.Avatars.Components;
 using EUI = FZTools.EditorUtils.UI;
 using ELayout = FZTools.EditorUtils.Layout;
+using static FZTools.AvatarUtils;
 
 namespace FZTools
 {
     public class FZFaceAnimationCreator : EditorWindow
     {
-        [SerializeField] GameObject avatar;
+        [SerializeField] GameObject avatar = null;
+        [SerializeField] AnimationClip defaultAnim = null;
         VRCAvatarDescriptor AvatarDescriptor => avatar != null ? avatar.GetComponent<VRCAvatarDescriptor>() : null;
         List<SkinnedMeshRenderer> SkinnedMeshRenderers => AvatarDescriptor != null ? AvatarDescriptor.GetComponentsInChildren<SkinnedMeshRenderer>(true).ToList() : new List<SkinnedMeshRenderer>();
         String[] MeshNames => SkinnedMeshRenderers.Select(smr => smr.gameObject.name).ToArray();
@@ -24,6 +28,7 @@ namespace FZTools
         private int prevSelectedIndex = -1;
         private bool checkValid = true;
         private string animFileName;
+        private int mode = 0; //0:通常モード, 1:WD Onモード
         Vector2 scrollPos;
 
 
@@ -51,12 +56,13 @@ namespace FZTools
                         });
                     EUI.Space();
                     var text = "以下の機能を提供します\n"
-                            + "・AnimationClipの値をメッシュのBlendshapeに転写\n"
-                            + "・メッシュのBlendshapeの値をAnimationClipに転写";
+                            + "・指定したメッシュのBlendshapeを元にAnimationClipを作成\n"
+                            + "・AnimationClipはAssets/Output/(アバター名)/AnimationClip/FaceAnimCreator以下に保存されます\n"
+                            + "・vrc.v_silなどのlipSync・eyeLook系のBlendshapeは除外されます";
                     EUI.InfoBox(text);
 
                     EUI.Space(2);
-                    EUI.Label("Skinned Mesh Renderer");
+                    EUI.Label("元になるSkinned Mesh Renderer");
                     EUI.Popup(ref selectedIndex, MeshNames, null);
                     if (prevSelectedIndex != selectedIndex)
                     {
@@ -64,14 +70,42 @@ namespace FZTools
                         prevSelectedIndex = selectedIndex;
                     }
                     EUI.Space();
-                    EUI.Label("Animation Clip Name");
+                    EUI.RadioButton(ref mode, new string[] { "通常モード", "WD Onモード" }, null);
+                    EUI.Space();
+                    if (mode == 0)
+                    {
+                        var wdModeText = "通常モード\n"
+                                        + "現在のBlendShapeをAnimationClipとして作成します。\n"
+                                        + "すべてのBlendShapeがAnimationClipに追加されます。";
+                        EUI.InfoBox(wdModeText);
+                    }
+                    if (mode == 1)
+                    {
+                        var wdModeText = "WD Onモード\n"
+                                        + "指定したAnimationClipをデフォルトとし、\n"
+                                        + "それと現在のBlendShapeとの差分のみをAnimationClipとして作成します"
+                                        + "指定されない場合、0以上の値を持つBlendShapeのみがAnimationClipに追加されます。";
+                        EUI.InfoBox(wdModeText);
+                        EUI.Space();
+                        EUI.Label("WD On用のデフォルトAnimationClip");
+                        EUI.ChangeCheck(
+                            () => EUI.ObjectField<AnimationClip>(ref defaultAnim),
+                            () => { });
+                    }
+                    EUI.Space();
+                    EUI.Label("AnimationClipの名前");
                     EUI.TextField(ref animFileName);
                     EUI.Space(2);
-                    if (!checkValid)
+                    if (avatar == null)
                     {
-                        var warnText = "Meshに存在しないShapeがAnimationClipに含まれています\n"
-                                    + "Mesh側に存在しないShapeについては無視して転写されます";
-                        EUI.InfoBox(warnText);
+                        var err1Text = "Avatarが指定されていません";
+                        EUI.ErrorBox(err1Text);
+                    }
+                    if (mode == 1)
+                    {
+                        var err2Text = "WD OnモードではデフォルトAnimationClipを指定してください\n"
+                                    + "指定しない場合、0以上の値を持つBlendShapeのみがAnimationClipに追加されます";
+                        EUI.WarningBox(err2Text);
                     }
                     EUI.Space(2);
                     EUI.Button("作成", MeshToAnim);
@@ -83,11 +117,90 @@ namespace FZTools
 
         public void MeshToAnim()
         {
+            if (avatar == null)
+            {
+                avatar = null;
+                return;
+            }
+
+            switch (mode)
+            {
+                case 0:
+                    Create();
+                    break;
+                case 1:
+                    CreateWithWDOn();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Create()
+        {
             var ac = new AnimationClip();
-            ac.AddBlendShape(selected);
-            //ディレクトリが存在していれば何もせず、なければ作成し、animファイルをそこに配置
+            var ignoreShapes = GetIgnoreShapeNames(selected, AvatarDescriptor);
+            ac.AddBlendShape(selected, ignoreShapes);
+
             AssetUtils.CreateDirectoryRecursive(AnimationClipOutputPath);
             AssetUtils.CreateAsset(ac, $"{AnimationClipOutputPath}/{animFileName}.anim");
+        }
+
+        private void CreateWithWDOn()
+        {
+            var ac = new AnimationClip();
+            var ignoreShapes = GetIgnoreShapeNames(selected, AvatarDescriptor);
+
+            if (defaultAnim != null)
+            {
+                // ignoreShapeに、defaultAnimとname・weightが一致するものを追加
+                var bindingCurves = defaultAnim.GetBindingCurves();
+                foreach (var curve in bindingCurves)
+                {
+                    var shapeName = curve.propertyName.Replace("blendShape.", "");
+                    var shapeVal = selected.GetBlendShapeWeight(selected.sharedMesh.GetBlendShapeIndex(shapeName));
+                    var defaultShapeVal = AnimationUtility.GetEditorCurve(defaultAnim, curve).keys[0].value;
+
+                    if (shapeVal == defaultShapeVal && !ignoreShapes.Contains(shapeName))
+                    {
+                        ignoreShapes.Add(shapeName);
+                    }
+                }
+            }
+            else
+            {
+                // ignoreShapesに、BlendShapeの値が0のものを追加
+                int count = selected.sharedMesh.blendShapeCount;
+                for (int i = 0; i < count; i++)
+                {
+                    var shapeName = selected.sharedMesh.GetBlendShapeName(i);
+                    var weight = selected.GetBlendShapeWeight(i);
+                    if (weight <= 0 && !ignoreShapes.Contains(shapeName))
+                    {
+                        ignoreShapes.Add(shapeName);
+                    }
+                }
+            }
+            ac.AddBlendShape(selected, ignoreShapes);
+
+            AssetUtils.CreateDirectoryRecursive(AnimationClipOutputPath);
+            AssetUtils.CreateAsset(ac, $"{AnimationClipOutputPath}/{animFileName}.anim");
+        }
+
+        private List<String> GetIgnoreShapeNames(SkinnedMeshRenderer faceMesh, VRCAvatarDescriptor descriptor)
+        {
+            var ignoreShapeNames = new List<string>();
+            var lipSyncBlendShapes = AvatarUtils.GetLipSyncShapeNames(faceMesh, descriptor);
+            var eyelidsBlendShapes = AvatarUtils.GetEyelidsShapeNames(faceMesh, descriptor);
+            if (lipSyncBlendShapes != null)
+            {
+                ignoreShapeNames.AddRange(lipSyncBlendShapes);
+            }
+            if (eyelidsBlendShapes != null)
+            {
+                ignoreShapeNames.AddRange(eyelidsBlendShapes);
+            }
+            return ignoreShapeNames;
         }
     }
 }
