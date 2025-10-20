@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +22,10 @@ namespace FZTools
     {
         [SerializeField] GameObject targetAvatar;
         [SerializeField] List<FZBulkCreateMenu> menues = new List<FZBulkCreateMenu>();
+        [SerializeField] UnityEngine.Object menuesTemplateFile;
         Vector2 scrollPos;
+
+        string MenueOutputPath => $"{AssetUtils.OutputRootPath(targetAvatar?.gameObject?.name)}/BulkMenuCreator";
 
         bool? isInstalledMA;
         bool IsInstalledMA
@@ -79,6 +83,13 @@ namespace FZTools
                     {
                         EUI.Button("以下の内容でメニューを作成する", Create);
                     }
+                    EUI.ChangeCheck(
+                        () => EUI.ObjectField(ref menuesTemplateFile),
+                        () =>
+                        {
+                            restoreMenu();
+                        });
+                    EUI.Space();
                     ELayout.Scroll(ref scrollPos, () =>
                                 {
                                     EUI.Space(2);
@@ -99,6 +110,19 @@ namespace FZTools
             var packages = Client.List();
             while (!packages.IsCompleted) { }
             return packages.Result.FirstOrDefault(p => p.name == packageName) != null;
+        }
+
+        private void restoreMenu()
+        {
+            if (menuesTemplateFile == null)
+            {
+                return;
+            }
+
+            string path = AssetDatabase.GetAssetPath(menuesTemplateFile);
+            string json = File.ReadAllText(path);
+            var menusArray = json.Split(",\n");
+            menues = menusArray.Select(menuJson => JsonUtility.FromJson<FZBulkCreateMenu>(menuJson)).ToList();
         }
 
         private void Create()
@@ -131,7 +155,11 @@ namespace FZTools
                 }
             });
 
-            // TODO menuesからテンプレートを作成する
+            string menuesJson = string.Join(",\n", menues.Select(menu => JsonUtility.ToJson(menu)).ToList());
+            AssetUtils.CreateDirectoryRecursive(MenueOutputPath);
+            var now = DateTime.Now;
+            File.WriteAllText($"{MenueOutputPath}/{targetAvatar?.gameObject?.name}_{now.Year}{now.Month}{now.Day}{now.Hour}{now.Minute}{now.Second}.fzbulkmenu", menuesJson, System.Text.Encoding.UTF8);
+            AssetDatabase.Refresh();
         }
 
         private void AddMAMenu()

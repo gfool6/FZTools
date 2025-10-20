@@ -14,7 +14,7 @@ namespace FZTools
         {
             public const string Name = "FZTools";
             public const string PackageName = "com.gfool6.fztools";
-            public const string Version = "0.1.4";
+            public const string Version = "0.1.5";
         }
 
         public struct OutputPath
