@@ -43,11 +43,11 @@ namespace FZTools
         GameObject menuObject;
 
 
-        [MenuItem("FZTools/メニュー雛形一括作成(β版)")]
+        [MenuItem("FZTools/BulkMenuCreator(β)")]
         private static void OpenWindow()
         {
             var window = GetWindow<FZBulkMenuCreator>();
-            window.titleContent = new GUIContent("メニュー雛形一括作成(β版)");
+            window.titleContent = new GUIContent("BulkMenuCreator(β)");
         }
 
         private void OnGUI()

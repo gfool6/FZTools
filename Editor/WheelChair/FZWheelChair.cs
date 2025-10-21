@@ -22,7 +22,7 @@ namespace FZTools
         List<string> errors = new List<string>();
         List<string> warns = new List<string>();
 
-        [MenuItem("Tools/FZWC")]
+        [MenuItem("FZTools/_WIP/FZWC")]
         private static void OpenWindow()
         {
             var window = GetWindow<FZWheelChair>();

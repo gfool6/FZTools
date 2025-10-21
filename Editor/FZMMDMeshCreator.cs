@@ -46,11 +46,11 @@ namespace FZTools
         bool forceCreate = false;
 
 
-        [MenuItem("FZTools/MMD用メッシュ作成")]
+        [MenuItem("FZTools/MMDMeshCreator")]
         private static void OpenWindow()
         {
             var window = GetWindow<FZMMDMeshCreator>();
-            window.titleContent = new GUIContent("MMD用メッシュ作成");
+            window.titleContent = new GUIContent("MMDMeshCreator");
         }
 
         private void OnGUI()

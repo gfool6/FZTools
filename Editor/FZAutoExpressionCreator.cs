@@ -43,11 +43,11 @@ namespace FZTools
         FZPreviewRenderer previewRenderer;
 
 
-        [MenuItem("FZTools/なんかいろいろ自動で作るやつ")]
+        [MenuItem("FZTools/AutoExpressionCreator")]
         private static void OpenWindow()
         {
             var window = GetWindow<FZAutoExpressionCreator>();
-            window.titleContent = new GUIContent("なんかいろいろ自動で作るやつ");
+            window.titleContent = new GUIContent("AutoExpressionCreator");
         }
 
         private void OnGUI()

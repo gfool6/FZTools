@@ -32,11 +32,11 @@ namespace FZTools
         Vector2 scrollPos;
 
 
-        [MenuItem("FZTools/今の顔から表情Animation作るやつ")]
+        [MenuItem("FZTools/FaceAnimationCreator")]
         private static void OpenWindow()
         {
             var window = GetWindow<FZFaceAnimationCreator>();
-            window.titleContent = new GUIContent("FaceAnimCreator");
+            window.titleContent = new GUIContent("FaceAnimationCreator");
         }
 
         private void OnGUI()
