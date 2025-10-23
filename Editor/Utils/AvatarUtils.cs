@@ -24,5 +24,27 @@ namespace FZTools
             var eyelidsBlendShapes = isBlendshapeEyelids ? descriptor.customEyeLookSettings.eyelidsBlendshapes.Select(index => faceMesh.sharedMesh.GetBlendShapeName(index)).ToList() : null;
             return eyelidsBlendShapes;
         }
+
+        public static GameObject GetArmature(Animator avatarAnimator)
+        {
+            if (avatarAnimator == null)
+            {
+                return null;
+            }
+
+            var hips = avatarAnimator.GetBoneTransform(HumanBodyBones.Hips);
+            if (hips == null)
+            {
+                return null;
+            }
+
+            var armature = hips.parent;
+            if (armature == null)
+            {
+                return null;
+            }
+
+            return armature.gameObject;
+        }
     }
 }

@@ -126,24 +126,7 @@ namespace FZTools
         private GameObject GetArmature(GameObject avatar)
         {
             Animator animator = avatar.GetComponent<Animator>();
-            if (animator == null)
-            {
-                return null;
-            }
-
-            var hips = animator.GetBoneTransform(HumanBodyBones.Hips);
-            if (hips == null)
-            {
-                return null;
-            }
-
-            var armature = hips.parent;
-            if (armature == null)
-            {
-                return null;
-            }
-
-            return armature.gameObject;
+            return AvatarUtils.GetArmature(animator);
         }
 
         private Transform[] GetTransforms(GameObject avatar)

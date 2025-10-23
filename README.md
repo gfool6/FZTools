@@ -12,7 +12,7 @@
 
 # 実装済み
 
-## なんかいろいろ自動で作るやつ(FX・Expression自動作成機)
+## AutoExpressionCreator
 ### 機能
 - 現在の顔メッシュに設定されたBlendshapeの値orメニューから編集した値をテンプレートとして表情アニメーションを作成します
   - ハンドジェスチャーおよび表情メニュー（2ページ分）のアニメーターを自動で作成します
@@ -20,6 +20,41 @@
 - それらを適用したFX Controller/ExpressionMen/ExpressionParameterを作成します
   - 簡易的な服・小物の全脱着メニューも作成されます
 - 作成されたAnimator・Expressionをアバターに自動で適用できます
+<br>
+
+## BlendshapeTransfer
+### 機能
+- 選択したアバターから、選択したメッシュのブレンドシェイプを、選択したAnimationファイルに転写します
+- 選択したAnimationファイルから、選択したアバターの選択したメッシュへ、ブレンドシェイプの値を転写します
+<br>
+
+## BulkMenuCreator(β)
+### 機能
+- MAを使用したメニューの雛形を生成できます
+  - MA Menu Installer/Menu Group/Menu Items/Object Toggleを一括で設定します
+  - MA Menu Itemの各種設定を自動で設定します
+- 簡易な表示切り替えだけであればこれだけで生成可能です
+- 生成したメニューの設定情報をファイルに保存し、そこから同じメニューを復元可能です
+- ※ModularAvatar必須
+<br>
+
+## FaceAnimationCreator
+### 機能
+- 現在の顔メッシュのブレンドシェイプからアニメーションファイルを作成します
+- ファイル名は任意の名前にすることができます
+- Write Defaults ONの場合/Offの場合など、柔軟に作成可能です
+<br>
+
+## MMDMeshCreator
+### 機能
+- MMD用Blendshapeを追加したメッシュを作成します
+<br>
+
+## ScaleTransfer(β)
+### 機能
+- ArmatureのScaleやTransformなどを読み取り、適用
+- ScaleAdjusterをコピー
+- ※ModularAvatar必須
 <br>
 
 ## ヌイデネ(仮)
@@ -30,39 +65,17 @@
 - 簡易的なPhysbone削除も対応
 <br>
 
-## MMD用メッシュ作成
-### 機能
-- MMD用Blendshapeを追加したメッシュを作成します
-<br>
-
-## BlendshapeTransfer
-### 機能
-- 選択したアバターから、選択したメッシュのブレンドシェイプを、選択したAnimationファイルに転写します
-- 選択したAnimationファイルから、選択したアバターの選択したメッシュへ、ブレンドシェイプの値を転写します
-<br>
-
-## 今の顔から表情Animation作るやつ
-### 機能
-- 現在の顔メッシュのブレンドシェイプからアニメーションファイルを作成します
-- ファイル名は任意の名前にすることができます
-- Write Defaults ONの場合/Offの場合など、柔軟に作成可能です
-
-## メニュー雛形一括作成(β版)
-### 機能
-- MAを使用したメニューの雛形を生成できます
-  - MA Menu Installer/Menu Group/Menu Items/Object Toggleを一括で設定します
-  - MA Menu Itemの各種設定を自動で設定します
-- 簡易な表示切り替えだけであればこれだけで生成可能です
-- 生成したメニューの設定情報をファイルに保存し、そこから同じメニューを復元可能です
-
 <br><br><br>
 
-# 開発中
+# 開発予定
 
-## ロリ化かんたん反映ツール（仮称）
+## キメラかんたんセットアップ
 ### 機能
-- ArmatureのScaleやTransformなどを読み取り、適用
-- ScaleAdjusterをコピー
+- 首と胴体が異なるいわゆる「キメラアバター」の作成支援
+- 頭用アバター・胴体用アバターを指定してざっくり合わせる
+- 胴体用アバターにMAで頭をマージ
+- 胴体用アバター側のDescriptor設定を自動修正
+- ※ModularAvatar必須
 
 ## BlendShapeの名前変えるやつ
 ### 機能
@@ -75,8 +88,8 @@
 - 既存のアニメーションを編集することができます（開発中）
 - マテリアル差し替えアニメーションの作成をすることができます（開発中）
 
-## AnimatorControllerを編集・共有しやすくするやつ(FZAnimatorPresetTools)
-### 機能(全部開発中)
-- Animator ControllerはLayerの複製やリネーム・パラメータ変更などが若干めんどくさいのでそれを解消したいもの
-- AnimatorControllerとFZ Presetファイルとの相互変換
-- FZ Presetファイルの生成
+## ~~AnimatorControllerを編集・共有しやすくするやつ(FZAnimatorPresetTools)~~
+### ~~機能(全部開発中)~~
+- ~~Animator ControllerはLayerの複製やリネーム・パラメータ変更などが若干めんどくさいのでそれを解消したいもの~~
+- ~~AnimatorControllerとFZ Presetファイルとの相互変換~~
+- ~~FZ Presetファイルの生成~~

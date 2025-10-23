@@ -34,7 +34,7 @@ namespace FZTools
             {
                 if (isInstalledMA == null)
                 {
-                    isInstalledMA = ValidMA();
+                    isInstalledMA = ExternalToolUtils.IsInstalledMA();
                 }
                 return (bool)isInstalledMA;
             }
@@ -104,14 +104,6 @@ namespace FZTools
             });
         }
 
-        private bool ValidMA()
-        {
-            var packageName = "nadena.dev.modular-avatar";
-            var packages = Client.List();
-            while (!packages.IsCompleted) { }
-            return packages.Result.FirstOrDefault(p => p.name == packageName) != null;
-        }
-
         private void restoreMenu()
         {
             if (menuesTemplateFile == null)
@@ -176,7 +168,7 @@ namespace FZTools
             menuObject.AddComponent<ModularAvatarMenuGroup>();
         }
 
-        private GameObject  AddSubMenu(string name)
+        private GameObject AddSubMenu(string name)
         {
             var subMenuObject = new GameObject(name);
             subMenuObject.transform.SetParent(menuObject.transform);
