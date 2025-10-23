@@ -21,7 +21,7 @@ namespace FZTools
         public static List<String> GetEyelidsShapeNames(SkinnedMeshRenderer faceMesh, VRCAvatarDescriptor descriptor)
         {
             var isBlendshapeEyelids = descriptor.customEyeLookSettings.eyelidType == VRCAvatarDescriptor.EyelidType.Blendshapes;
-            var eyelidsBlendShapes = isBlendshapeEyelids ? descriptor.customEyeLookSettings.eyelidsBlendshapes.Select(index => faceMesh.sharedMesh.GetBlendShapeName(index)).ToList() : null;
+            var eyelidsBlendShapes = isBlendshapeEyelids ? descriptor.customEyeLookSettings.eyelidsBlendshapes.Where(i => i >= 0).Select(index => faceMesh.sharedMesh.GetBlendShapeName(index)).ToList() : null;
             return eyelidsBlendShapes;
         }
 
